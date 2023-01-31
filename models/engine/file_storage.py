@@ -1,34 +1,43 @@
 #!/usr/bin/python3
-from os import path
+"""
+Contains the FileStorage class
+"""
+
+from models.base_model import BaseModel
 import json
 
-class FileStorage():
+
+class FileStorage:
+    """serializes instances to a JSON file & deserializes back to instances"""
+
+    # string - path to the JSON file
     __file_path = "file.json"
+    # dictionary - empty but will store all objects by <class name>.id
     __objects = {}
 
     def all(self):
-        return FileStorage.__objects
+        """returns the dictionary __objects"""
+        return self.__objects
 
     def new(self, obj):
-        _id = obj.id
-        key = str(obj.__class__.__name__) + "." + _id
-        FileStorage.__objects[key] = obj
+        """sets in __objects the obj with key <obj class name>.id"""
+        key = obj.__class__.__name__ + "." + obj.id
+        self.__objects[key] = obj
 
     def save(self):
-        dct = {}
-        with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
-            for k, v in FileStorage.__objects.items():
-                dct[k] = v.to_dict()
-            json.dump(dct, f)
+        """serializes __objects to the JSON file (path: __file_path)"""
+        json_objects = {}
+        for key in self.__objects:
+            json_objects[key] = self.__objects[key].to_dict()
+        with open(self.__file_path, 'w') as f:
+            json.dump(json_objects, f)
 
     def reload(self):
-        from models.base_model import BaseModel
-        if path.isfile(FileStorage.__file_path):
-            with open(FileStorage.__file_path, "r") as f:
-                obj = json.load(f)
-                dct = {}
-                for k, v in obj.items():
-                    dct[k] = BaseModel(**v)
-                FileStorage.__objects = dct
-        else:
-            return
+        """deserializes the JSON file to __objects"""
+        try:
+            with open(self.__file_path, 'r') as f:
+                json_objects = json.load(f)
+            for key in json_objects:
+                self.__objects[key] = BaseModel(**json_objects[key])
+        except:
+            pass
