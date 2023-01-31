@@ -8,6 +8,11 @@ class BaseModel:
     """BaseModel class"""
 
     def __init__(self, *args, **kwargs):
+        """
+            Initializer
+            id (int): public instance attribute
+        """
+        from models import storage
         self.id = str(uuid.uuid4())
         time_format = '%Y-%m-%dT%H:%M:%S.%f'
         self.created_at = datetime.now()
@@ -18,6 +23,8 @@ class BaseModel:
                     value = datetime.strptime(value, time_format)
                 if key != "__class__":
                     setattr(self, key, value)
+        else:
+            storage.new(self)
 
     def __str__(self):
         """
@@ -31,7 +38,9 @@ class BaseModel:
             updates the public instance attribute
             updated_at with the current datetime
         """
+        from models import storage
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """
