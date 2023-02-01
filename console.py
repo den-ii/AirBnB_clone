@@ -16,6 +16,7 @@ class HBNBCommand(cmd.Cmd):
                 [bool]: [true or false]
     """
     prompt = '(hbnb) '
+    classes = {"BaseModel" : BaseModel}
 
     def do_EOF(self, arg):
         """ Exits console """
@@ -34,7 +35,7 @@ class HBNBCommand(cmd.Cmd):
              Creates a new instance of BaseModel,
              saves it (to the JSON file) and prints the id
         """
-        classes = {"BaseModel": BaseModel}
+
         args = args.split()
         if not args:
             print("** class name missing **")
