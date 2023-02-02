@@ -4,8 +4,10 @@ Contains the FileStorage class
 """
 
 from models.base_model import BaseModel
+from models.user import User
 import json
 
+classes = {"BaseModel" :  BaseModel, "User" : User}
 
 class FileStorage:
     """serializes instances to a JSON file & deserializes back to instances"""
@@ -14,6 +16,7 @@ class FileStorage:
     __file_path = "file.json"
     # dictionary - empty but will store all objects by <class name>.id
     __objects = {}
+
 
     def all(self):
         """returns the dictionary __objects"""
@@ -36,8 +39,8 @@ class FileStorage:
         """deserializes the JSON file to __objects"""
         try:
             with open(self.__file_path, 'r') as f:
-                json_objects = json.load(f)
-            for key in json_objects:
-                self.__objects[key] = BaseModel(**json_objects[key])
+                jo = json.load(f)
+            for key in jo:
+                self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
         except:
             pass
