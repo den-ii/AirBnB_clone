@@ -1,24 +1,24 @@
-.places {
-  margin-top: 25px;
-}
-.places--container {
-  width: 860px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-}
 .places h1 {
-  font-size: 30px;
+    font-size: 30px;
+    width: 100%;
+    margin: 20px auto auto 20px;
 }
-.places h2 {
-  font-size: 30px;
+.places {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .places article {
-  width: 390px;
-  border: 1px solid #ff5a5f;
-  border-radius: 4px;
-  padding: 20px;
-  margin: 20px;
-  text-align: center;
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #ff5a5f;
+    border-radius: 4px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.places article h2 {
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -39,5 +39,42 @@
 .filters .amenities h4 {
     font-weight: 400;
     font-size: 14px;
-    margin: auto auto auto 50px;
+    margin: auto auto 17px 50px;
+}
+.popover li {
+    list-style-type: none;
+}
+.popover li li,
+.popover li {
+    margin: 10px;
+}
+.popover {
+    border: 1px solid #dddddd;
+    background-color: #fafafa;
+    padding: 20px;
+    position: sticky;
+    display: none;
+}
+.locations:hover .popover,
+.amenities:hover .popover {
+    display: block;
+}
+.popover h2 {
+    font-size: 16px;
+}
+@media screen and (max-width: 575px) {
+    .filters {
+        width: 100%;
+    }
+    .filters button {
+        width: 90%;
+    }
+    .filters .locations,
+    .filters .amenities {
+        width: 100%;
+    }
+    .filters .locations {
+        border-bottom: 1px solid #dddddd;
+        width: 100%;
+    }
 }
